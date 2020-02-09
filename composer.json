@@ -1,0 +1,14 @@
+{
+    "name": "roman-glushko/mage-di-analyser",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Roman Glushko",
+            "email": "roman.glushko.m@gmail.com"
+        }
+    ],
+    "require": {
+        "symfony/console": "^4.4"
+    }
+}
