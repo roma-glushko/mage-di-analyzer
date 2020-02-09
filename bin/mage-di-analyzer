@@ -1,0 +1,12 @@
+#!/usr/bin/env php
+
+<?php
+
+require __DIR__ . '/../vendor/autoload.php';
+
+use Symfony\Component\Console\Application;
+use DiAnalyzer\Command\AnalyzeCommand;
+
+$application = new Application('mage-di-analyzer', '0.1.0');
+$application->add(new AnalyzeCommand());
+$application->run();

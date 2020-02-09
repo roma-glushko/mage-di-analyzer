@@ -9,6 +9,12 @@
         }
     ],
     "require": {
-        "symfony/console": "^4.4"
+        "symfony/console": "^4.4",
+        "symfony/finder": "^4.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "DiAnalyzer\\": "src/DiAnalyzer"
+        }
     }
 }
