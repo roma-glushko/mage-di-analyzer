@@ -8,6 +8,7 @@ use DiAnalyzer\Analyzer\ModuleAnalyzer;
 use DiAnalyzer\Di\DiData;
 use DiAnalyzer\Di\MetadataFinder;
 use DiAnalyzer\Di\MetadataLoader;
+use DiAnalyzer\Writer\ConsoleWriter;
 use DiAnalyzer\Writer\CsvWriter;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -36,9 +37,9 @@ class AnalyzeCommand extends Command
     private $moduleAnalyzer;
 
     /**
-     * @var CsvWriter
+     * @var ConsoleWriter
      */
-    private $csvWriter;
+    private $consoleWriter;
 
     /**
      * AnalyzeCommand constructor.
@@ -50,6 +51,7 @@ class AnalyzeCommand extends Command
         $this->metadataFinder = new MetadataFinder();
         $this->metadataLoader = new MetadataLoader();
         $this->moduleAnalyzer = new ModuleAnalyzer();
+        $this->consoleWriter = new ConsoleWriter();
         $this->csvWriter = new CsvWriter();
     }
 
@@ -78,6 +80,14 @@ class AnalyzeCommand extends Command
             'Areas to analyze (e.g. global, frontend, adminhtml, crontab, webapi_soap, webapi_rest)',
             []
         );
+
+        $this->addOption(
+            'format',
+            'f',
+            InputOption::VALUE_OPTIONAL,
+            'Output format (console, csv)',
+            'console'
+        );
     }
 
     /**
@@ -90,6 +100,7 @@ class AnalyzeCommand extends Command
     {
         $metadataDir = $input->getArgument('metadata-dir');
         $areas = $input->getOption('areas');
+        $format = $input->getOption('format');
 
         $output->writeln('Analyzing DI metadata from ' . $metadataDir . ' directory...');
 
@@ -102,7 +113,12 @@ class AnalyzeCommand extends Command
 
         $moduleReport = $this->moduleAnalyzer->analyze($metadataFiles);
 
-        $this->csvWriter->save('di-analyzer.report.csv', $moduleReport);
+        // todo: add an abstraction here
+        if ($format === 'csv') {
+            $this->csvWriter->save('di-analyze-report.csv', $moduleReport);
+        } else {
+            $this->consoleWriter->save($output, $moduleReport);
+        }
 
         return 0;
     }
