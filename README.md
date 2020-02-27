@@ -37,3 +37,10 @@ Then, MageDIAnalyzer will be able to check the files by running:
 ./bin/mage-di-analyzer analyze ./tmp/ -a webapi_rest -f csv
 ./bin/mage-di-analyzer analyze ./tmp/ -a webapi_soap -f csv
 ```
+
+## Report Example
+
+| Module Name | Area | Arguments | Argument Size | Preferences | Preference Size | Instance Types | Instance Type Size |
+|-------------------|---------|-----------|---------------|-------------|-----------------|----------------|--------------------|
+| Magento_Framework | crontab | 1995 | 714.79kB | 335 | 38.44kB | 57 | 6.25kB |
+| Magento_Catalog | crontab | 1019 | 531.2kB | 283 | 38.36kB | 23 | 2.87kB |
